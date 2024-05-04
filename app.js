@@ -3,10 +3,17 @@ const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
 const mysql = require('mysql2/promise')
 const bcrypt = require('bcrypt')
+const cors = require('cors')
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials : true
+};
 
 const app = express()
 app.use(cookieParser())
 app.use(express.json())
+app.use(cors(corsOptions));
 
 let conn = null
 
@@ -60,7 +67,6 @@ app.post('/api/login', async (req, res) => {
             message: "Server Error",
             error
         })
-        throw error
     }
 })
 
