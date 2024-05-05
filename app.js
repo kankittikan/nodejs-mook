@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt')
 const cors = require('cors')
 
 //import controlers
+const authMiddleware = require('./middlewares/authMiddleware')
 const loginController = require('./controllers/loginController')
+const typeRepairController = require('./controllers/typeRepairController')
 
 const corsOptions = {
     origin: 'http://localhost:3000',
@@ -32,6 +34,7 @@ const initDB = async () => {
 
 // controller
 app.post('/api/login', loginController)
+app.get('/api/get/typeRepair', authMiddleware, typeRepairController)
 
 // main
 app.listen(process.env.PORT, async () => {
